@@ -5,5 +5,5 @@ Before running the code, with the pipenv already installed run these:
 `pipenv sync`
 `pipenv shell`
 Then you are ready to run the main code.
-For more info, run `pipenv run python3 main.py`
+For more info, run `python3 main.py`
 There is also a bonus script fits2png.py, which modifies .fits files into .png files
