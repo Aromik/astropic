@@ -10,6 +10,7 @@ astropy = "*"
 pillow = "*"
 matplotlib = "*"
 numpy = "*"
+scipy = "*"
 
 [dev-packages]
 
