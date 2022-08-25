@@ -36,6 +36,8 @@ try:
     else:
         obj_name = sys.argv[3]
         data = getobjectinfo.get_info(obj_name)
+        if data == None:
+            sys.exit()
         zo = float(data[0]) * cu.redshift
         v = float(data[1]) * u.kilometer / u.second
         zd = v / const.c * cu.redshift
