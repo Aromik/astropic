@@ -85,8 +85,20 @@ def get_info(object):
 def convert(data):
     data_arr = data.split(' ')
     mode = data_arr[0]
-    img_addr = data_arr[1]
+    global img_addr
+    global zo
+    global zd
+    global d
+    global v
+    global z
+    global new_v
+    global new_d
+    global new_zd
+    global new_zo
+    global new_z
+    global thenewimagename
     if mode == '-o':
+        img_addr = data_arr[1]
         obj_name = data_arr[2]
         data_obj = get_info(obj_name)
         if data == None:
@@ -106,8 +118,9 @@ def convert(data):
         new_zd = new_z.decompose()
         new_zo = (new_z + new_zd)       
     elif mode == 'info':
-        print('This tool is made to edit images of astronomical object using different redshifts, distances, etc.\nUsage: insert a string "[mode] [image address] [object data] [new view point data]" \n mode should be -o (working with object name, in [object data] only object name is specified), -c (working with custom object, [object data] should be radial velocity (in m/s) and distance (in Mpc)) \n New PoV data should be: new radial velocity and new distance')
+        sys.exit('This tool is made to edit images of astronomical object using different redshifts, distances, etc.\nUsage: insert a string "[mode] [image address] [object data] [new view point data]" \n mode should be -o (working with object name, in [object data] only object name is specified), -c (working with custom object, [object data] should be radial velocity (in m/s) and distance (in Mpc)) \n New PoV data should be: new radial velocity and new distance')
     elif mode == '-c':
+        img_addr = data_arr[1]
         v = float(data_arr[2]) * u.meter / u.second# distance
         d = float(data_arr[3]) * u.Mpc # radial velocity (in m/s), v << c
         z = d.to(cu.redshift, cu.redshift_distance(WMAP9)) # cosmological redshift
