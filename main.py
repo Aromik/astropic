@@ -53,7 +53,7 @@ try:
         new_zd = new_z.decompose()
         new_zo = (new_z + new_zd)
 except IndexError:
-    sys.exit('Usage: ' + sys.argv[0] + ' [mode] [image address] [object data]. For more info run "pipenv run python3 ' + sys.argv[0] + ' info"')
+    sys.exit('Usage: ' + sys.argv[0] + ' [mode] [image address] [object data] [new PoV data]. For more info run "pipenv run python3 ' + sys.argv[0] + ' info"')
 #redact the distance
 pic_processing.GetOriginalImage(img_addr, zo.value)
 thenewimagename = pic_processing.ApplyChanges(new_zo.value)
