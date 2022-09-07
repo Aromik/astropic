@@ -140,4 +140,3 @@ def convert(data):
     thenewimagename = ApplyChanges(new_zo.value)
     ApplyDistance(thenewimagename, d.value, new_d.value)
     print('Done! Your new image is called "' + thenewimagename + '"')
-convert('-o test.jpg "NGC 1200" 345 782')
