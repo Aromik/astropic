@@ -99,7 +99,8 @@ def convert(data):
     global thenewimagename
     if mode == '-o':
         img_addr = data_arr[1]
-        obj_name = data_arr[2]
+        obj_name = data.split('"')[1].split('"')[0]
+        data_arr = data.split('"')[2].strip().split(' ')
         data_obj = get_info(obj_name)
         if data == None:
             sys.exit()
@@ -110,15 +111,15 @@ def convert(data):
         zo = zo.decompose()
         z = (zo - zd)
         d = z.to(u.Mpc, cu.redshift_distance(WMAP9))
-        new_v = float(data_arr[3]) * u.meter / u.second
-        new_d = float(data_arr[4]) * u.Mpc
+        new_v = float(data_arr[0]) * u.meter / u.second
+        new_d = float(data_arr[1]) * u.Mpc
         new_zd = new_v / const.c * cu.redshift
         new_z = new_d.to(cu.redshift, cu.redshift_distance(WMAP9))
         new_z = new_z.decompose()
         new_zd = new_z.decompose()
         new_zo = (new_z + new_zd)       
     elif mode == 'info':
-        sys.exit('This tool is made to edit images of astronomical object using different redshifts, distances, etc.\nUsage: insert a string "[mode] [image address] [object data] [new view point data]" \n mode should be -o (working with object name, in [object data] only object name is specified), -c (working with custom object, [object data] should be radial velocity (in m/s) and distance (in Mpc)) \n New PoV data should be: new radial velocity and new distance')
+        sys.exit('This tool is made to edit images of astronomical object using different redshifts, distances, etc.\nUsage: insert a string "[mode] [image address] [object data] [new view point data]" \n mode should be -o (working with object name, in [object data] only object name is specified (the name should be inside of " ")), -c (working with custom object, [object data] should be radial velocity (in m/s) and distance (in Mpc)) \n New PoV data should be: new radial velocity and new distance')
     elif mode == '-c':
         img_addr = data_arr[1]
         v = float(data_arr[2]) * u.meter / u.second# distance
@@ -139,3 +140,4 @@ def convert(data):
     thenewimagename = ApplyChanges(new_zo.value)
     ApplyDistance(thenewimagename, d.value, new_d.value)
     print('Done! Your new image is called "' + thenewimagename + '"')
+convert('-o test.jpg "NGC 1200" 345 782')
