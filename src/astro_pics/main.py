@@ -54,7 +54,7 @@ def ApplyChanges(new_redshift):
     img_rgb.save(image_orig.split('_orig')[0] + '_new.' + image_orig.split('.')[1])
     os.remove(newname)
     return image_orig.split('_orig')[0] + '_new.' + image_orig.split('.')[1]
-def ApplyDistance(image_address, old_dist, new_dist):
+'''def ApplyDistance(image_address, old_dist, new_dist):
     ipath = Path(image_address)
     img = Image.open(ipath)
     basewidth = img.size[0] * old_dist / new_dist 
@@ -62,7 +62,7 @@ def ApplyDistance(image_address, old_dist, new_dist):
     wpercent = (basewidth/float(img.size[0]))
     hsize = int((float(img.size[1])*float(wpercent)))
     img = img.resize((basewidth,hsize), Image.Resampling.LANCZOS)
-    img.save(image_address)
+    img.save(image_address)'''
 custom = False
 d = 0
 zo = 0
@@ -138,5 +138,6 @@ def convert(data):
         print('Wrong mode. Please try again.')
     GetOriginalImage(img_addr, zo.value)
     thenewimagename = ApplyChanges(new_zo.value)
-    ApplyDistance(thenewimagename, d.value, new_d.value)
+    # ApplyDistance(thenewimagename, d.value, new_d.value)
+    # The function has been deprecated
     print('Done! Your new image is called "' + thenewimagename + '"')
