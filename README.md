@@ -6,3 +6,5 @@ To run your code, install the repository:
 Then you are ready to run the main code.
 To use the module in your code, do `from astro_pics.main import convert` and then run the `convert('info')`
 There is also a bonus script fits2png.py, which modifies .fits files into .png files
+
+WARNING: The version on pypi.org is outdated, since the package isnt being updated there. Instead go and see https://github.com/Aromik/image_modify_astro
