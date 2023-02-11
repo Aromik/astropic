@@ -1,11 +1,13 @@
 import astropy.units as u
 import astropy.cosmology.units as cu
+u.add_enabled_units(cu)
 from astropy.cosmology import WMAP9
 from astropy import constants as const
 import sys
 from PIL import Image
 import os
 from pathlib import Path
+import socket
 def wav2hue(wavelength):
     hue = (750 - wavelength) / 9.9346
     return hue
@@ -13,6 +15,7 @@ def hue2wav(hue):
     wavelength = 750 - 9.9346 * hue
     return wavelength
 newname = ''
+thenewimagename=''
 def GetOriginalImage(image_address, redshift):
     #get each pixel data, then change it to what is needed, to get the orig image
     ipath = Path(image_address)
@@ -82,6 +85,19 @@ def get_info(object):
     except IndexError:
         print('Your object doesnt have required data (radial valocity and redshift) in the SIMBAD database. Try again with running as a custom object')
         return None
+REMOTE_SERVER = "one.one.one.one"
+def is_connected(hostname):
+    try:
+        # see if we can resolve the host name -- tells us if there is
+        # a DNS listening
+        host = socket.gethostbyname(hostname)
+        # connect to the host -- tells us if the host is actually reachable
+        s = socket.create_connection((host, 80), 2)
+        s.close()
+        return True
+    except Exception:
+        pass # we ignore any errors, returning False
+    return False
 def convert(data):
     data_arr = data.split(' ')
     mode = data_arr[0]
@@ -98,6 +114,9 @@ def convert(data):
     global new_z
     global thenewimagename
     if mode == '-o':
+        a = is_connected()
+        if not a:
+            print("You can't use the '-o' option, because you have no Internet connection, and data from online databases cannot be gathered.")
         img_addr = data_arr[1]
         obj_name = data.split('"')[1].split('"')[0]
         data_arr = data.split('"')[2].strip().split(' ')
